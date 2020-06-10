@@ -138,6 +138,7 @@
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
                     <descriptors>
                         <descriptor>deploy/assembly/assembly.xml</descriptor>

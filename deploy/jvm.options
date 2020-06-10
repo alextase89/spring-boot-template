@@ -1,0 +1,10 @@
+-Xms512M
+-Xmx1024M
+-Dfile.encoding=UTF-8
+-Djava.security.egd=file:/dev/./urandom
+-XX:+TieredCompilation
+-XX:+UseG1GC
+-XX:+CMSClassUnloadingEnabled
+-XX:NewRatio=2
+-XX:ErrorFile=logs/${project.name}_hs_err_pid%p.log
+-XX:-OmitStackTraceInFastThrow

@@ -16,12 +16,23 @@
             <directory>${basedir}/deploy/bin</directory>
             <outputDirectory>bin</outputDirectory>
             <fileMode>0755</fileMode>
+            <filtered>true</filtered>
             <includes>
                 <include>**.sh</include>
             </includes>
         </fileSet>
 
-        <!--- Specify the configuration file in the output target/classes to the config Directory -->
+        <!-- Export jvm.options file -->
+        <fileSet>
+            <directory>${basedir}/deploy</directory>
+            <outputDirectory>.</outputDirectory>
+            <fileMode>0755</fileMode>
+            <filtered>true</filtered>
+            <includes>
+                <include>jvm.options</include>
+            </includes>
+        </fileSet>
+
         <fileSet>
             <directory>${basedir}/target/classes</directory>
             <outputDirectory>config</outputDirectory>

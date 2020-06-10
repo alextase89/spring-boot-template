@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPLICATION="@project.name@"
+APPLICATION="${project.name}"
 APPLICATION_JAR="${APPLICATION}.jar"
 BIN_PATH=$(cd `dirname $0`; pwd)
 cd `dirname $0`
@@ -30,22 +30,19 @@ fi
 
 echo "" > ${LOG_PATH}
 
-JAVA_OPT="-server -Xms3G -Xmx3G -Xmn512m -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=256m"
-JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"
+JAVA_OPT=`cat ${BASE_PATH}/jvm.options`
+STARTUP_CMD="nohup java ${JAVA_OPT} -jar ${BASE_PATH}/boot/${APPLICATION_JAR} --spring.config.location=${CONFIG_DIR} > ${LOG_PATH} 2>&1 &"
 
 STARTUP_LOG="${STARTUP_LOG}application name: ${APPLICATION}\n"
 STARTUP_LOG="${STARTUP_LOG}application jar  name: ${APPLICATION_JAR}\n"
 STARTUP_LOG="${STARTUP_LOG}application root path: ${BASE_PATH}\n"
-STARTUP_LOG="${STARTUP_LOG}application bin  path: ${BIN_PATH}\n"
-STARTUP_LOG="${STARTUP_LOG}application config path: ${CONFIG_DIR}\n"
 STARTUP_LOG="${STARTUP_LOG}application log  path: ${LOG_PATH}\n"
 STARTUP_LOG="${STARTUP_LOG}application JAVA_OPT : ${JAVA_OPT}\n"
-STARTUP_LOG="${STARTUP_LOG}application startup command: nohup java ${JAVA_OPT} -jar ${BASE_PATH}/boot/${APPLICATION_JAR} --spring.config.location=${CONFIG_DIR} > ${LOG_PATH} 2>&1 &\n"
+STARTUP_LOG="${STARTUP_LOG}application startup command: ${STARTUP_CMD}\n"
 
-nohup java ${JAVA_OPT} -jar ${BASE_PATH}/boot/${APPLICATION_JAR} --spring.config.location=${CONFIG_DIR} > ${LOG_PATH} 2>&1 &
+eval ${STARTUP_CMD}
 
 PID=$(ps -ef | grep "${APPLICATION_JAR}" | grep -v grep | awk '{ print $2 }')
-
 STARTUP_LOG="${STARTUP_LOG}application pid: ${PID}\n"
 
 echo -e ${STARTUP_LOG} >> ${LOG_STARTUP_PATH}
