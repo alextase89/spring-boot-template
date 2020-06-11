@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPLICATION="${project.name}"
+APPLICATION="${project.build.finalName}"
 APPLICATION_JAR="${APPLICATION}.jar"
 BIN_PATH=$(cd `dirname $0`; pwd)
 cd `dirname $0`
