@@ -8,3 +8,4 @@
 -XX:NewRatio=2
 -XX:ErrorFile=logs/${project.name}_hs_err_pid%p.log
 -XX:-OmitStackTraceInFastThrow
+-Dspring.profiles.active=${profileActive}
